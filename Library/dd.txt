@@ -1,0 +1,380 @@
+
+package library;
+
+import java.util.Scanner;
+public class Library {
+
+    private static int x;
+
+   
+    public static void main(String[] args) {
+         Scanner input=new Scanner(System.in);
+         LibraryManager b=new LibraryManager(4000,"admin",1234,25);
+         int x=0;
+         
+       // the dat of issue and return boorow book insial 
+       int d1=0,d2=0,m1=0,m2=0,y1=0,y2=0;
+   while (x!=3){
+   System.out.println("1:LibraryManger");
+   System.out.println("2: student");
+    System.out.println("3: break");
+   int a=input.nextInt();
+   if(a==1){
+   System.out.println("1: to add book");
+   System.out.println("2: to delet book");
+   System.out.println("3: to search book");
+   System.out.println("4: to show all book");
+    int d=input.nextInt();
+    switch(d){
+        //add book
+        case 1:
+        {  
+         String   bo_name;//=null;
+         String   auther;//=null;
+            
+            System.out.println("what number of book you need add");
+        int h=input.nextInt();
+        for(int i=0;i<h;i++){
+        System.out.print("Enter book name of book :");
+         bo_name=input.next();
+         System.out.print("Enter book auther of book :");
+         auther=input.next();
+        Book l=new Book(bo_name,auther);
+       b.addbook(l);
+                 System.out.println("The process complete successfuly");
+
+        }
+        
+         break;
+        }
+        case 2:
+        {
+         System.out.println("Enter index of book you need delet");
+        int xx=input.nextInt();
+        b.deletbook(xx);
+        break;
+        }
+        case 3:
+        {
+         System.out.println("Enter name of book you nedd search of");
+         String sss=input.next();
+         // the search tru or false
+         boolean bb=b.searchbook(sss);
+         if(bb==true)
+             System.out.println("the book is found");
+          else
+             System.out.println("the book is not found");
+        break;
+        }
+        case 4:
+            //to show book
+        {
+        b.showbook();
+        break;
+        }
+        default :
+        {
+        System.out.println("the wrong shose");
+        break;
+        }
+    }
+   }
+   else if(a==2){
+       // to search and borrow and return
+   System.out.println("1: to search book");
+   System.out.println("2: to borrow book");
+   System.out.println("3: to return book");
+   int z=input.nextInt();
+   switch(z)
+   {
+       case 1:
+   {
+         System.out.println("Enter name of book you nedd search of");
+         String sss=input.next();
+         // the search tru or false
+         boolean bb=b.searchbook(sss);
+         if(bb==true)
+             System.out.println("the book is found");
+          else
+             System.out.println("the book is not found");
+        break;
+        }        
+       case 2:
+       {
+              System.out.println("Enter the issue date");
+              d1=input.nextInt();
+              m1=input.nextInt();
+              y1=input.nextInt();
+           System.out.println("Enter book you need borrow"); 
+           String r=input.next();
+           b.borrowbook(r);
+       break;
+       }
+       case 3:
+       {
+           System.out.println("Enter the return date");
+              d2=input.nextInt();
+              m2=input.nextInt();
+              y2=input.nextInt();
+           if((((y2-y1)*365)+((m2-m1)*30)+(d2-d1))>=20){
+           System.out.println("you shoud pay fine");
+           System.out.println("Enter the name of book you return");
+           String k1=input.next();
+           System.out.println("Enter auther");
+           String k2=input.next();
+           Book n=new Book(k1,k2);
+           b.returnbook(n);
+           }
+           else
+           {
+           System.out.println("Enter the name of book you return");
+           String k1=input.next();
+           System.out.println("Enter auther");
+           String k2=input.next();
+           Book n=new Book(k1,k2);
+           b.returnbook(n);
+           }   
+       break;
+       }   
+        default :
+        {
+        System.out.println("the wrong shose");
+        break;
+        }
+   }
+   }
+   else if(a==3){
+   break;}
+   }
+    }
+   //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package library;
+
+
+public abstract class person {
+    String name;
+    int id;
+    int age;
+    public boolean Searchbook;
+    // abstract mehthod need override int extends class
+
+    public person() 
+    { 
+        name="unkown";
+        id=0;
+        age=0;
+    }
+
+    public person(String name, int id, int age) {
+        this.name = name;
+        this.id = id;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+package library;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+public class student extends person
+{
+Scanner input=new Scanner(System.in);
+protected String facultyname;
+protected int stage;
+
+    public student() 
+    {
+    }
+
+    public student(String facultyname, int stage, String name, int id, int age) {
+        super(name, id, age);
+        this.facultyname = facultyname;
+        this.stage = stage;
+    }
+    
+    //to add student record.
+     public void setFacultyname(String facultyname) {
+        this.facultyname = facultyname;
+    }
+
+    public void setStage(int stage) {
+        this.stage = stage;
+    }
+    public String getFacultyname() {
+        return facultyname;
+    }
+
+    public int getStage() {
+        return stage;
+    } 
+      
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+package library;
+
+public class Book {
+protected  String name;
+    protected String auther;
+ 
+
+    public Book() {
+    }
+
+    public Book(String name, String auther) {
+        this.name = name;
+        this.auther = auther;
+       
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAuther(String auther) {
+        this.auther = auther;
+    }
+
+   
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuther() {
+        return auther;
+    }
+
+} 
+
+   
+
+
+
+
+package library;
+
+import java.util.ArrayList;
+public class LibraryManager extends person {
+    double salary;
+ArrayList<Book>Booklist;
+    public LibraryManager() {
+    }
+
+    public LibraryManager(double salary, String name, int id, int age) {
+        super(name, id, age);
+        this.salary = salary;
+  Booklist=new ArrayList<Book>();      
+  
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+    
+    //override method
+ 
+    public void addbook(Book b){
+    Booklist.add(b);
+    }
+    //int becous begin of zero 
+    public void deletbook(int b){
+    Booklist.remove(b);
+    }
+    
+    public void showbook(){
+        for(int i=0;i<Booklist.size();i++)
+        {System.out.println("Book "+(i+1)+Booklist.get(i).getName()+", Auther is : "+Booklist.get(i).getAuther());}
+    }
+    public boolean searchbook(String b){
+        for(int i=0;i<Booklist.size();i++){
+        if(Booklist.get(i).getName().equalsIgnoreCase(b))
+            return true;
+                }
+        return false;
+    }
+    //to borrow book
+  public void borrowbook(String g){
+      //search book
+  for(int i=0;i<Booklist.size();i++){
+        if(Booklist.get(i).getName().equalsIgnoreCase(g)){
+            //delet book thats search
+        Booklist.remove(i);
+        }
+  }
+  }
+  public void returnbook(Book n){
+  Booklist.add(n);
+  }
+  }  
+   
